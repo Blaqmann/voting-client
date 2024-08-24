@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../store/auth-context';
 import { AiFillEdit, AiOutlinePlusSquare, AiOutlineUserAdd } from 'react-icons/ai';
 import SideBar from './Sidebar';
+
 const Layout = ({ children }) => {
    const { user, setUser, notify, election } = useContext(AuthContext);
    const [showSidebar, setShowSidebar] = useState(false);
@@ -25,21 +26,21 @@ const Layout = ({ children }) => {
    return (
       <div className='flex max-h-screen overflow-y-hidden'>
          <SideBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-         <aside className='hidden md:grid h-screen px-4 bg-indigo-500'>
+         <aside className='hidden md:grid h-screen px-4 bg-black'>
             <ul className='relative text-lg'>
                <li>
                   <SiBlockchaindotcom className='h-10 w-10 text-white mx-16 my-5 ' />
                   <br />
                </li>
 
-               <div className='border-t border-gray-400 py-4'></div>
+               <div className='border-t border-gray-700 py-4'></div>
                {/* No user logged in */}
                {!user && (
                   <>
                      <li className='relative'>
                         <div>
                            <BiHome className='inline text-white my-4' />
-                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-indigo-300'>
+                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-gray-400'>
                               Home
                            </Link>
                         </div>
@@ -49,7 +50,7 @@ const Layout = ({ children }) => {
                            <BiLogIn className='inline text-white my-4' />
                            <Link
                               to='/login'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               Login
                            </Link>
@@ -60,7 +61,7 @@ const Layout = ({ children }) => {
                            <GiPodiumWinner className='inline text-white my-4' />
                            <Link
                               to='/results'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               View results
                            </Link>
@@ -74,7 +75,7 @@ const Layout = ({ children }) => {
                      <li className='relative'>
                         <div>
                            <BiHome className='inline text-white my-4' />
-                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-indigo-300'>
+                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-gray-400'>
                               Home Page
                            </Link>
                         </div>
@@ -84,7 +85,7 @@ const Layout = ({ children }) => {
                            <GiPodiumWinner className='inline text-white my-4' />
                            <Link
                               to='/results'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               All results
                            </Link>
@@ -94,7 +95,7 @@ const Layout = ({ children }) => {
                         <div>
                            <BiLogOut className='inline text-white my-4' />
                            <button
-                              className='text-gray-200 h-12 px-3 hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3 hover:text-gray-400'
                               onClick={logoutHandler}
                            >
                               Logout
@@ -109,7 +110,7 @@ const Layout = ({ children }) => {
                      <li className='relative'>
                         <div>
                            <BiHome className='inline text-white my-4' />
-                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-indigo-300'>
+                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-gray-400'>
                               Home Page
                            </Link>
                         </div>
@@ -119,7 +120,7 @@ const Layout = ({ children }) => {
                            <GiVote className='inline text-white my-4' />
                            <Link
                               to='/election'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               Vote
                            </Link>
@@ -130,7 +131,7 @@ const Layout = ({ children }) => {
                            <GiPodiumWinner className='inline text-white my-4' />
                            <Link
                               to='/results'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               All results
                            </Link>
@@ -140,7 +141,7 @@ const Layout = ({ children }) => {
                         <div>
                            <BiLogOut className='inline text-white my-4' />
                            <button
-                              className='text-gray-200 h-12 px-3 hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3 hover:text-gray-400'
                               onClick={logoutHandler}
                            >
                               Logout
@@ -155,7 +156,7 @@ const Layout = ({ children }) => {
                      <li className='relative'>
                         <div>
                            <BiHome className='inline text-white my-4' />
-                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-indigo-300'>
+                           <Link to='/' className='text-gray-200 h-12 px-3  hover:text-gray-400'>
                               Home Page
                            </Link>
                         </div>
@@ -165,7 +166,7 @@ const Layout = ({ children }) => {
                            <GiVote className='inline text-white my-4' />
                            <Link
                               to='/election'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               Manage Election
                            </Link>
@@ -176,7 +177,7 @@ const Layout = ({ children }) => {
                            <GiPodiumWinner className='inline text-white my-4' />
                            <Link
                               to='/results'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               All results
                            </Link>
@@ -187,7 +188,7 @@ const Layout = ({ children }) => {
                            <HiUserGroup className='inline text-white my-4' />
                            <Link
                               to='/users'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               All users
                            </Link>
@@ -197,7 +198,7 @@ const Layout = ({ children }) => {
                         <div>
                            <BiLogOut className='inline text-white my-4' />
                            <button
-                              className='text-gray-200 h-12 px-3 hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3 hover:text-gray-400'
                               onClick={logoutHandler}
                            >
                               Logout
@@ -207,7 +208,7 @@ const Layout = ({ children }) => {
                   </>
                )}
 
-               {/* Admin , no election ongoing and not added elction yet */}
+               {/* Admin , no election ongoing and not added election yet */}
                {user &&
                   !user.electionOngoing &&
                   user.role === 'admin' &&
@@ -218,7 +219,7 @@ const Layout = ({ children }) => {
                               <BiHome className='inline text-white my-4' />
                               <Link
                                  to='/'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  Home Page
                               </Link>
@@ -229,7 +230,7 @@ const Layout = ({ children }) => {
                               <AiOutlinePlusSquare className='inline text-white my-4' />
                               <Link
                                  to='/addElection'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  Add Election
                               </Link>
@@ -240,7 +241,7 @@ const Layout = ({ children }) => {
                               <GiPodiumWinner className='inline text-white my-4' />
                               <Link
                                  to='/results'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  All results
                               </Link>
@@ -251,7 +252,7 @@ const Layout = ({ children }) => {
                               <HiUserGroup className='inline text-white my-4' />
                               <Link
                                  to='/users'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  All users
                               </Link>
@@ -261,7 +262,7 @@ const Layout = ({ children }) => {
                            <div>
                               <BiLogOut className='inline text-white my-4' />
                               <button
-                                 className='text-gray-200 h-12 px-3 hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3 hover:text-gray-400'
                                  onClick={logoutHandler}
                               >
                                  Logout
@@ -270,7 +271,7 @@ const Layout = ({ children }) => {
                         </li>
                      </>
                   )}
-               {/* Admin , no election ongoing and already added elction */}
+               {/* Admin , no election ongoing and already added election */}
                {user &&
                   !user.electionOngoing &&
                   user.role === 'admin' &&
@@ -281,7 +282,7 @@ const Layout = ({ children }) => {
                               <BiHome className='inline text-white my-4' />
                               <Link
                                  to='/'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  Home Page
                               </Link>
@@ -292,7 +293,7 @@ const Layout = ({ children }) => {
                               <GiVote className='inline text-white my-4' />
                               <Link
                                  to='/election'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  Manage Election
                               </Link>
@@ -303,7 +304,7 @@ const Layout = ({ children }) => {
                               <AiOutlineUserAdd className='inline text-white my-4' />
                               <Link
                                  to='/addCandidate'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  Add Candidate
                               </Link>
@@ -314,7 +315,7 @@ const Layout = ({ children }) => {
                               <GiPodiumWinner className='inline text-white my-4' />
                               <Link
                                  to='/results'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  All results
                               </Link>
@@ -325,7 +326,7 @@ const Layout = ({ children }) => {
                               <HiUserGroup className='inline text-white my-4' />
                               <Link
                                  to='/users'
-                                 className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3  hover:text-gray-400'
                               >
                                  All users
                               </Link>
@@ -335,7 +336,7 @@ const Layout = ({ children }) => {
                            <div>
                               <BiLogOut className='inline text-white my-4' />
                               <button
-                                 className='text-gray-200 h-12 px-3 hover:text-indigo-300'
+                                 className='text-gray-200 h-12 px-3 hover:text-gray-400'
                                  onClick={logoutHandler}
                               >
                                  Logout
@@ -352,7 +353,7 @@ const Layout = ({ children }) => {
                            <AiFillEdit className='inline text-white my-4' />
                            <Link
                               to='/edituser'
-                              className='text-gray-200 h-12 px-3  hover:text-indigo-300'
+                              className='text-gray-200 h-12 px-3  hover:text-gray-400'
                            >
                               Edit your address
                            </Link>
@@ -363,7 +364,7 @@ const Layout = ({ children }) => {
             </ul>
          </aside>
          <main
-            className={`flex-1 overflow-y-auto h-screen ${showSidebar ? 'bg-gray-400 bg-opacity-80  md:bg-inherit md:bg-opacity-0' : ''
+            className={`flex-1 overflow-y-auto h-screen ${showSidebar ? 'bg-gray-900 bg-opacity-80  md:bg-inherit md:bg-opacity-0' : ''
                }`}
          >
             {children}
