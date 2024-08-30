@@ -1,98 +1,50 @@
-import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router';
-import { useGetResults } from '../../components/hooks/get-results';
-import Loading from '../../components/Loading';
-import { Link, useNavigate } from 'react-router-dom';
-import Electioneth from '../../ethereum/election';
-import AuthContext from '../../store/auth-context';
-import ShowResult from './ShowResult';
-import confetti from 'canvas-confetti';
-
-const SingleResult = () => {
-   const [loading, setLoading] = useState(false);
-   const [isDraw, setIsDraw] = useState(false);
-   const [electionName, setElectionName] = useState('');
-   const [candidates, setCandidates] = useState([]);
-   const [candidateCount, setCount] = useState(0);
-   const { address } = useParams();
-   const { notify, results } = useContext(AuthContext);
-   const navigate = useNavigate();
-
-   useGetResults(setLoading);
-
-   useEffect(() => {
-      let b = async () => {
-         setLoading(true);
-
-         // Check if the address is from the current election
-         if (!results.includes(address)) {
-            navigate(-1);
-            notify('Wrong address', 'error');
-         } else {
-            try {
-               const Election = Electioneth(address);
-               let count = await Election.methods.candidateCount().call();
-               setCount(+count);
-
-               let name = await Election.methods.electionName().call();
-               setElectionName(name);
-
-               let tempCandidate = await Promise.all(
-                  Array(+count)
-                     .fill(1)
-                     .map((element, index) => {
-                        return Election.methods.candidates(index).call();
-                     })
-               );
-               // Sort candidates
-               tempCandidate.sort((a, b) => b.votes - a.votes);
-
-               // Check for a draw
-               if (+count >= 2 && +tempCandidate[0].votes === +tempCandidate[1].votes) {
-                  setIsDraw(true);
-               }
-
-               setCandidates(tempCandidate);
-
-               if (!isDraw && count >= 1) {
-                  confetti({
-                     particleCount: 250,
-                  });
-               }
-            } catch (err) {
-               notify(err.message, 'error');
-            }
-         }
-
-         setLoading(false);
-      };
-      b();
-      return () => (b = null);
-   }, [address, isDraw, navigate, notify, results]);
-
+/**
+ * @prettier
+ */
+const ShowResult = ({ candidate, isDraw, id }) => {
    return (
-      <>
-         {loading && <Loading />}
-         {!loading && candidateCount === 0 && <p>No candidates found</p>}
-         {!loading && candidateCount > 0 && (
-            <div className='flex flex-col'>
-               <div>
-                  <h2 className='mt-5 text-center text-3xl font-bold mb-8 text-gray-900'>
-                     {electionName}
-                  </h2>
-               </div>
-               <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 '>
-                  {candidates.map((candidate, index) => (
-                     <ShowResult key={index} id={index} candidate={candidate} isDraw={isDraw} />
-                  ))}
-               </div>
-               <button className='border border-transparent ml-6 py-2 mt-5 w-40 rounded-md text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400'>
-                  <Link to='/results'> All results</Link>
-               </button>
+      <div className='flex justify-start mt-5 mx-5 mb-3'>
+         <div
+            className={`flex filter flex-col lg:flex-row rounded-lg  ${
+               id === 0 && !isDraw && candidate.votes > 0
+                  ? 'bg-winner drop-shadow-3xl shadow-card'
+                  : 'bg-gray-200 drop-shadow-md shadow-xl'
+            } ${id === 0 && isDraw && 'bg-indigo-200 drop-shadow-xl shadow-xl'}`}
+         >
+            <div className='my-auto mx-auto items-center justify-center pl-2'>
+               <img
+                  className='mt-3 max-w-lg lg:h-20 lg:w-20 md:h-16 md:w-16 w-32 h-32 rounded-full object-cover'
+                  src={`${candidate.url}`}
+               />
+               <h5 className='text-gray-900 lg:text-lg md:text-md text-center font-medium mb-2'>
+                  {candidate.name}
+               </h5>
             </div>
-         )}
-      </>
+
+            <div className='py-4 px-2 flex flex-col justify-start md:max-w-l lg:max-w-md'>
+               <p className='text-gray-700 mb-4 text-sm'>
+                  {candidate.description || 'No description available.'}
+               </p>
+               <div className='inline-flex'>
+                  <p
+                     className={`${!isDraw && id === 0 && 'text-indigo-700'} ${
+                        isDraw && id === 0 && 'text-indigo-900'
+                     } ${id !== 0 && 'text-black'}
+                      text-lg bold`}
+                  >
+                     Votes: {candidate.votes}
+                  </p>
+                  {id === 0 && !isDraw && candidate.votes > 0 && (
+                     <p className='flex text-indigo-700 text-lg bold ml-auto pr-4'>Winner</p>
+                  )}
+                  {id === 0 && isDraw && (
+                     <p className='flex text-indigo-900 text-lg bold ml-auto pr-4'>Draw</p>
+                  )}
+               </div>
+            </div>
+         </div>
+      </div>
    );
 };
 
-export default SingleResult;
+export default ShowResult;
