@@ -10,6 +10,7 @@ const ShowResult = ({ candidate, isDraw, id }) => {
                   ? 'bg-winner drop-shadow-3xl shadow-card'
                   : 'bg-gray-200 drop-shadow-md shadow-xl'
             } ${id === 0 && isDraw && 'bg-indigo-200 drop-shadow-xl shadow-xl'}`}
+            style={{ width: '300px', height: '200px' }} // Set fixed width and height
          >
             <div className='my-auto mx-auto items-center justify-center pl-2'>
                <img
@@ -22,15 +23,14 @@ const ShowResult = ({ candidate, isDraw, id }) => {
             </div>
 
             <div className='py-4 px-2 flex flex-col justify-start md:max-w-l lg:max-w-md'>
-               <p className='text-gray-700 mb-4 text-sm'>
+               <p className='text-gray-700 mb-4 text-sm overflow-hidden overflow-ellipsis'>
                   {candidate.description || 'No description available.'}
                </p>
                <div className='inline-flex'>
                   <p
                      className={`${!isDraw && id === 0 && 'text-indigo-700'} ${
                         isDraw && id === 0 && 'text-indigo-900'
-                     } ${id !== 0 && 'text-black'}
-                      text-lg bold`}
+                     } ${id !== 0 && 'text-black'} text-lg bold`}
                   >
                      Votes: {candidate.votes}
                   </p>
