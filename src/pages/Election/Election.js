@@ -28,13 +28,9 @@ const Election = () => {
             notify('Please login first', 'error');
             navigate('/login');
          } else {
-            //get intial value of validAccount, if the user is using right ethereum ot not
-            //getAccount();
-            //checking if there is no ongoing election
             if (election === '0x0000000000000000000000000000000000000000') {
                navigate('/');
             }
-            //election.ongoing is only true if admin adds an election
             if (user.electionOngoing === false && user.role !== 'admin') {
                notify('There is no ongoing election', 'error');
                navigate('/');
@@ -45,19 +41,14 @@ const Election = () => {
    //to get all candidates
    useEffect(() => {
       let b = async () => {
-         //try{
          setLoading(true);
          if (election !== '0x0000000000000000000000000000000000000000') {
             const Election = Electioneth(election);
-            //getting candidate count
             let count = await Election.methods.candidateCount().call();
             setCount(+count);
 
-            //getting election name
             let name = await Election.methods.electionName().call();
             setElectionName(name);
-
-            //getting all candidates and storing in one variable
 
             tempCandidate = await Promise.all(
                Array(+count)
@@ -67,7 +58,6 @@ const Election = () => {
                   })
             );
             setCandidates(tempCandidate);
-            //console.log(tempCandidate);
          }
          setLoading(false);
       };
@@ -77,7 +67,6 @@ const Election = () => {
       };
    }, []);
 
-   // //use effect to remove bug where user rejects second transaction while ending election
    useEndElection('election', setLoading);
 
    return (
@@ -96,7 +85,6 @@ const Election = () => {
             election !== '0x0000000000000000000000000000000000000000' &&
             candidateCount > 0 && (
                <>
-                  {/* <th>Vote</th> */}
                   <div className=''>
                      <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 '>
                         {candidateCount &&
