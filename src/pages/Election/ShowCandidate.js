@@ -36,7 +36,7 @@ const ShowCandidate = ({ id, candidate, candidateCount, setLoading }) => {
          setLoading(false);
          return;
       }
-      //voting the candidate and retriving latest candidate vote count
+      //voting the candidate and retrieving latest candidate vote count
       try {
          const Election = Electioneth(election);
          const accounts = await web3.eth.getAccounts();
@@ -74,8 +74,11 @@ const ShowCandidate = ({ id, candidate, candidateCount, setLoading }) => {
    return (
       <>
          <div className='flex justify-start mt-5 mx-5'>
-            <div className='flex filter drop-shadow-xl flex-col lg:flex-row rounded-lg hover:shadow-xl shadow-lg bg-gray-200'>
-               <div className='my-auto mx-auto items-center justify-center pl-2 '>
+            <div
+               className='flex filter drop-shadow-xl flex-col lg:flex-row rounded-lg hover:shadow-xl shadow-lg bg-gray-200'
+               style={{ width: '300px', height: '200px' }} // Set fixed width and height
+            >
+               <div className='my-auto mx-auto items-center justify-center pl-2'>
                   <img
                      className='mt-3 lg:h-20 max-w-lg lg:w-20 md:h-16 md:w-16 w-32 h-32 rounded-full object-cover'
                      src={`${candidate.url}`}
@@ -87,7 +90,9 @@ const ShowCandidate = ({ id, candidate, candidateCount, setLoading }) => {
                </div>
 
                <div className='py-4 px-2 flex flex-col justify-start md:max-w-l lg:max-w-md'>
-                  <p className='text-gray-700 mb-4 text-sm'>{candidate.description}</p>
+                  <p className='text-gray-700 mb-4 text-sm overflow-hidden overflow-ellipsis'>
+                     {candidate.description}
+                  </p>
                   {user && user.electionOngoing && !user.hasVoted && (
                      <button
                         onClick={voteHandler}
@@ -99,23 +104,8 @@ const ShowCandidate = ({ id, candidate, candidateCount, setLoading }) => {
                </div>
             </div>
          </div>
-         {/* <tr>
-            <td>{candidate.name}</td>
-            <td>{candidate.description}</td>
-            <td>{vote}</td>
-            {user && user.electionOngoing && !user.hasVoted && (
-               <td>
-                  <button onClick={voteHandler}>Vote</button>
-               </td>
-            )}
-            {/* <td><button onClick={voteHandler}>Vote</button></td> */}
-         {/* {user && user.role === 'admin' && !user.electionOngoing}
-            <td>{candidate.url}</td>
-            <td>
-               <Link to='/editCandidate'>Edit Candidate</Link>
-            </td>
-         </tr>  */}
       </>
    );
 };
+
 export default ShowCandidate;
