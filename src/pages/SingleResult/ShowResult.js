@@ -35,10 +35,10 @@ const ShowResult = ({ candidate, isDraw, id }) => {
                      Votes: {candidate.votes}
                   </p>
                   {id === 0 && !isDraw && candidate.votes > 0 && (
-                     <p className='flex text-indigo-700 text-lg bold ml-auto pr-4'>Winner</p>
+                     <p className='flex text-indigo-700 text-lg bold ml-auto pr-4'> Winner</p>
                   )}
                   {id === 0 && isDraw && (
-                     <p className='flex text-indigo-900 text-lg bold ml-auto pr-4'>Draw</p>
+                     <p className='flex text-indigo-900 text-lg bold ml-auto pr-4'> Draw</p>
                   )}
                </div>
             </div>
