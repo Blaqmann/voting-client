@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import { useGetResults } from '../../components/hooks/get-results';
@@ -10,6 +7,7 @@ import Electioneth from '../../ethereum/election';
 import AuthContext from '../../store/auth-context';
 import ShowResult from './ShowResult';
 import confetti from 'canvas-confetti';
+
 const SingleResult = () => {
    const [loading, setLoading] = useState(false);
    const [isDraw, setIsDraw] = useState(false);
@@ -24,25 +22,21 @@ const SingleResult = () => {
 
    useEffect(() => {
       let b = async () => {
-         //try{
-
          setLoading(true);
-         //First check if address by user is from our current election
+
+         // Check if the address is from the current election
          if (!results.includes(address)) {
             navigate(-1);
             notify('Wrong address', 'error');
          } else {
             try {
                const Election = Electioneth(address);
-               //getting candidate count
                let count = await Election.methods.candidateCount().call();
                setCount(+count);
 
-               //getting election name
                let name = await Election.methods.electionName().call();
                setElectionName(name);
 
-               //getting all candidates and storing in one variable
                let tempCandidate = await Promise.all(
                   Array(+count)
                      .fill(1)
@@ -50,19 +44,21 @@ const SingleResult = () => {
                         return Election.methods.candidates(index).call();
                      })
                );
-
-               //sort tempCandidates
+               // Sort candidates
                tempCandidate.sort((a, b) => b.votes - a.votes);
-               //checking for draw
+
+               // Check for a draw
                if (+count >= 2 && +tempCandidate[0].votes === +tempCandidate[1].votes) {
                   setIsDraw(true);
                }
 
                setCandidates(tempCandidate);
-               if (!isDraw && count >= 1)
+
+               if (!isDraw && count >= 1) {
                   confetti({
                      particleCount: 250,
                   });
+               }
             } catch (err) {
                notify(err.message, 'error');
             }
@@ -72,7 +68,8 @@ const SingleResult = () => {
       };
       b();
       return () => (b = null);
-   }, []);
+   }, [address, isDraw, navigate, notify, results]);
+
    return (
       <>
          {loading && <Loading />}
