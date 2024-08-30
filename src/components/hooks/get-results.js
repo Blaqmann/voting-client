@@ -25,7 +25,8 @@ export const useGetResults = (setLoading) => {
             setResults(electionResults);
             setNames(electionNames);
          } catch (err) {
-            notify(err.message, 'error');
+            notify("No results, please try again.", 'error');
+            console.log(err.message, 'error');
          }
          setLoading(false);
       };
